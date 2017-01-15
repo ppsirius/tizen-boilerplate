@@ -1,0 +1,24 @@
+/* Define Your Font Stack & Sizes */
+$base-font: 25;
+$base-font-size: ($base-font * 1px) !default;
+$base-line-height: 1.4;
+
+/* Font Familly */
+$samsung-one-thin: 'SamsungOneUI 200';
+$samsung-one-light: 'SamsungOneUI 300';
+$samsung-one-regular: 'SamsungOneUI 400';
+$samsung-one-medium: 'SamsungOneUI 500';
+$samsung-one-bold: 'SamsungOneUI 600';
+$samsung-one-extra-bold: 'SamsungOneUI 700';
+
+/* Base Colors */
+$white: #fff;
+$black: #000;
+$cream: #f3f3f3;
+$light-grey: #787a80;
+$mid-grey: #606060;
+$dark-grey: #191919;
+
+/* Other Variables */
+$gutter: 30px;
+$radius: 6px;

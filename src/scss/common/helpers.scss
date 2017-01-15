@@ -1,0 +1,11 @@
+.clearfix::after {
+    clear: both;
+    content: '';
+    display: table;
+}
+
+@mixin ellipsis() {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
