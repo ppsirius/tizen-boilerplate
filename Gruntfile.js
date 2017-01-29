@@ -1,7 +1,7 @@
 // Main options
 var options = {
         appName: "tizenBoilerplate",
-        appId: 'uR8JDT1bvw',
+        appId: 'SnHl0SrqpF',
         wgtPath: __dirname + '/dist/',
         tvIP: "106.116.153.189",
         tizenCLIPath: "/home/p.pupczyk/tizen-sdk",

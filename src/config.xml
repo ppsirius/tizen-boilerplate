@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns:tizen="http://tizen.org/ns/widgets" xmlns="http://www.w3.org/ns/widgets" id="http://yourdomain/tizenBoilerplate" version="1.0.0" viewmodes="maximized">
-    <tizen:application id="uR8JDT1bvw.tizenBoilerplate" package="uR8JDT1bvw" required_version="2.3"/>
+    <tizen:application id="SnHl0SrqpF.tizenBoilerplate" package="SnHl0SrqpF" required_version="2.3"/>
     <content src="index.html"/>
     <feature name="http://tizen.org/feature/screen.size.all"/>
     <icon src="icon.png"/>
     <name>tizenBoilerplate</name>
+    <tizen:privilege name="http://tizen.org/privilege/application.launch"/>
+    <tizen:privilege name="http://tizen.org/privilege/filesystem.read"/>
+    <tizen:privilege name="http://tizen.org/privilege/filesystem.write"/>
+    <tizen:privilege name="http://tizen.org/privilege/tv.inputdevice"/>
+    <tizen:privilege name="http://developer.samsung.com/privilege/network.public"/>
     <tizen:profile name="tv"/>
+    <tizen:setting context-menu="enable" background-support="disable" encryption="disable" install-location="auto" hwkey-event="enable"/>
 </widget>
