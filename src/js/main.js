@@ -1,5 +1,3 @@
-import WebApis from './webapis'
+import WebApis from './webapi'
 
-
-WebApis;
 
