@@ -1,5 +1,3 @@
-'use strict';
-
 var BASE_PATH = __dirname,
     SOURCE_PATH = BASE_PATH + '/src';
 
@@ -11,28 +9,21 @@ module.exports = {
         path: BASE_PATH + "/dist/js",
         filename: "bundle.js"
     },
-    debug: true,
     devtool: 'source-map',
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.js$/,
-                exclude: [/node_modules/],
+                exclude: /node_modules/,
                 loader: 'babel-loader',
-                query: {
-                    presets: ['es2015']
+                options: {
+                    presets: [
+                        [ 'es2015', { modules: false } ]
+                    ]
                 }
             }
         ]
-    },
-    devServer: {
-        port: 3000,
-        host: '106.120.67.23',
-        contentBase: BASE_PATH + "/dist",
-        watchOptions: {
-            aggregateTimeout: 300
-        },
-        stats: 'errors-only'
     }
 };
+
 

@@ -1,6 +1,6 @@
 # tizen-boilerplate
 
-### Instalation
+### Installation
     yarn install
 
 Change settigns in Gruntfile.js
