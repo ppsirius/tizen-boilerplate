@@ -3,10 +3,12 @@ var options = {
         appName: "tizenBoilerplate",
         appId: 'SnHl0SrqpF',
         wgtPath: __dirname + '/dist/',
-        tvIP: "106.116.153.189",
-        tizenCLIPath: "/home/p.pupczyk/tizen-sdk",
+        tvIP: "106.116.154.6",
+        tizenCLIPath: "/home/p.pupczyk/tizen-studio",
         tizenScriptPath: "/tools/ide/bin/tizen.sh",
-        certificate: "local"
+        tvPath: "/home/owner/share/tmp/sdk_tools/tmp/",
+        certificateName: "aaaa",
+        certificatePath: "/home/p.pupczyk/workspace-studio/.metadata/.plugins/org.tizen.common.sign/profiles.xml"
     };
 
 module.exports = function (grunt) {
@@ -15,7 +17,21 @@ module.exports = function (grunt) {
         scope: 'devDependencies'
     });
 
-    var SOURCE_PATH = 'src';
+    var SOURCE_PATH = 'src',
+        devToolsAdress,
+        devToolsPort;
+
+    function findDevToolsPort(err, stdout, stderr, cb) {
+      if (err) {
+        cb(err);
+        return;
+      }
+      cb();
+      devToolsPort = stdout.match(/port: ([0-9]+)/);
+      devToolsPort = devToolsPort[1];
+      devToolsAdress = options['tvIP'] + ':' + devToolsPort;
+      console.log(devToolsAdress)
+    }
 
     grunt.initConfig({
         watch: {
@@ -65,17 +81,33 @@ module.exports = function (grunt) {
             build: {
                 command: [
                     options['tizenCLIPath'] + options['tizenScriptPath'] + ' build-web -- ./dist',
-                    options['tizenCLIPath'] + options['tizenScriptPath'] + ' package --sign ' + options['certificate'] + ' --type wgt -- ./dist/.buildResult',
+                    options['tizenCLIPath'] + options['tizenScriptPath'] + ' package --sign ' + options['certificateName'] + ' --type wgt -- ./dist/.buildResult',
                     'mv ./dist/.buildResult/' + options['appName'] + '.wgt ./dist/'
                 ].join('&&')
             },
-            deploy: {
+            deployTizen_2_4: {
                 command: [
                     options['tizenCLIPath'] + '/tools/sdb connect ' + options['tvIP'],
                     options['tizenCLIPath'] + '/tools/sdb push "'+ options['wgtPath'] + options['appName'] + '.wgt' + '" "/opt/usr/apps/tmp"',
                     options['tizenCLIPath'] + '/tools/sdb shell 0 vd_appinstall appis "/opt/usr/apps/tmp/' + options['appName'] + '.wgt"',
                     options['tizenCLIPath'] + '/tools/sdb shell 0 debug ' + options['appId'] + '.' + options['appName'] + ' 300'
                 ].join('&&')
+            },
+            deployTizen_3_0: {
+                command: [
+                    options['tizenCLIPath'] + '/tools/sdb connect ' + options['tvIP'],
+                    options['tizenCLIPath'] + '/tools/sdb push '+ options['wgtPath'] + options['appName'] + '.wgt ' + options['tvPath'],
+                    options['tizenCLIPath'] + '/tools/sdb shell 0 vd_appinstall qua ' + options['tvPath'] + options['appName'] + '.wgt',
+                    options['tizenCLIPath'] + '/tools/sdb shell 0 debug ' + options['appId'] + '.' + options['appName'] + ' 300'
+                ].join('&&'),
+                options: {
+                    callback: findDevToolsPort
+                }
+            },
+            runDevTools: {
+                command: function() {
+                    return "google-chrome " + devToolsAdress
+                }
             },
             createURLLuncherFolder: {
               command: [
@@ -87,6 +119,9 @@ module.exports = function (grunt) {
                 'http-server url-luncher'
               ].join('&&')
             },
+            signCertificateToCli: {
+              command: options['tizenCLIPath'] + options['tizenScriptPath'] + ' cli-config -g profiles.path=' + options['certificatePath']
+            }
         },
         webpack: {
             debug: require("./webpack.config.js")
@@ -94,9 +129,8 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('build', ['sass', 'autoprefixer', 'webpack', 'copy:debug']);
-
-    grunt.registerTask('deploy', ['build', 'shell:build', 'shell:deploy']);
+    grunt.registerTask('deploy-tizen-2-4', ['build', 'shell:build', 'deployTizen_2_4']);
+    grunt.registerTask('deploy-tizen-3', ['build', 'shell:build', 'shell:deployTizen_3_0', 'shell:runDevTools']);
     grunt.registerTask('deployWin', ['build-debug', 'shell:deployWin']);
-    grunt.registerTask('urlluncher', ['build', 'shell:build', 'shell:createURLLuncherFolder']);
-
+    grunt.registerTask('url-luncher', ['build', 'shell:build', 'shell:createURLLuncherFolder']);
 };
