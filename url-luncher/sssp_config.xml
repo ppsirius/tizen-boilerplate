@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget>
+  <ver>2</ver>
+	<size>1</size>
+	<widgetname>tizenBoilerplate</widgetname>
+	<webtype>tizen</webtype>
+</widget>
