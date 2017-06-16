@@ -76,7 +76,17 @@ module.exports = function (grunt) {
                     options['tizenCLIPath'] + '/tools/sdb shell 0 vd_appinstall appis "/opt/usr/apps/tmp/' + options['appName'] + '.wgt"',
                     options['tizenCLIPath'] + '/tools/sdb shell 0 debug ' + options['appId'] + '.' + options['appName'] + ' 300'
                 ].join('&&')
-            }
+            },
+            createURLLuncherFolder: {
+              command: [
+                'node ./config/upgradeVersion.js',
+                'mkdir -p url-luncher',
+                'cp ./dist/' + options.appName + '.wgt url-luncher',
+                'cp ./config/sssp_config.xml url-luncher',
+                'ls url-luncher',
+                'http-server url-luncher'
+              ].join('&&')
+            },
         },
         webpack: {
             debug: require("./webpack.config.js")
@@ -87,5 +97,6 @@ module.exports = function (grunt) {
 
     grunt.registerTask('deploy', ['build', 'shell:build', 'shell:deploy']);
     grunt.registerTask('deployWin', ['build-debug', 'shell:deployWin']);
+    grunt.registerTask('urlluncher', ['build', 'shell:build', 'shell:createURLLuncherFolder']);
 
 };
