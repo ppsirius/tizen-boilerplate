@@ -3,7 +3,7 @@ var options = {
         appName: "tizenBoilerplate",
         appId: 'SnHl0SrqpF',
         wgtPath: __dirname + '/dist/',
-        tvIP: "106.116.154.6",
+        tvIP: "106.116.154.96",
         tizenCLIPath: "/home/p.pupczyk/tizen-studio",
         tizenScriptPath: "/tools/ide/bin/tizen.sh",
         tvPath: "/home/owner/share/tmp/sdk_tools/tmp/",
@@ -85,14 +85,6 @@ module.exports = function (grunt) {
                     'mv ./dist/.buildResult/' + options['appName'] + '.wgt ./dist/'
                 ].join('&&')
             },
-            deployTizen_2_4: {
-                command: [
-                    options['tizenCLIPath'] + '/tools/sdb connect ' + options['tvIP'],
-                    options['tizenCLIPath'] + '/tools/sdb push "'+ options['wgtPath'] + options['appName'] + '.wgt' + '" "/opt/usr/apps/tmp"',
-                    options['tizenCLIPath'] + '/tools/sdb shell 0 vd_appinstall appis "/opt/usr/apps/tmp/' + options['appName'] + '.wgt"',
-                    options['tizenCLIPath'] + '/tools/sdb shell 0 debug ' + options['appId'] + '.' + options['appName'] + ' 300'
-                ].join('&&')
-            },
             deployTizen_3_0: {
                 command: [
                     options['tizenCLIPath'] + '/tools/sdb connect ' + options['tvIP'],
@@ -129,8 +121,7 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('build', ['sass', 'autoprefixer', 'webpack', 'copy:debug']);
-    grunt.registerTask('deploy-tizen-2-4', ['build', 'shell:build', 'deployTizen_2_4']);
-    grunt.registerTask('deploy-tizen-3', ['build', 'shell:build', 'shell:deployTizen_3_0', 'shell:runDevTools']);
+    grunt.registerTask('build-deploy', ['build', 'shell:build', 'shell:deployTizen_3_0', 'shell:runDevTools']);
     grunt.registerTask('deployWin', ['build-debug', 'shell:deployWin']);
     grunt.registerTask('url-luncher', ['build', 'shell:build', 'shell:createURLLuncherFolder']);
 };
