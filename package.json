@@ -1,7 +1,11 @@
 {
   "name": "tizenBoilerplate",
   "version": "2.0.0",
+  "license": "MIT",
   "main": "index.js",
+  "scripts": {
+    "webpack:dev": "webpack-dev-server --config ./webpack.config.js"
+  },
   "devDependencies": {
     "autoprefixer": "^7.2.4",
     "babel-core": "^6.26.0",
@@ -18,6 +22,7 @@
     "grunt-webpack": "^3.0.2",
     "http-server": "^0.11.1",
     "load-grunt-tasks": "^3.5.2",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.10.1"
   }
 }
