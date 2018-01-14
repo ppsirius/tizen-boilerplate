@@ -8,7 +8,6 @@ const username = 'p.pupczyk';
 const options = {
   appName: 'tizenBoilerplate',
   appId: 'SnHl0SrqpF',
-  wgtPath: `${__dirname}/dist/`,
   tvIP: '106.116.154.96',
   tizenCLIPath: `/home/${username}/tizen-studio`,
   tizenScriptPath: '/tools/ide/bin/tizen.sh',

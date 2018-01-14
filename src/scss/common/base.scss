@@ -1,21 +1,47 @@
-html, body {
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    margin: 0;
+html,
+body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
 }
 
 body {
-    background-color: $white;
-    overflow: hidden;
-    color: $black;
-    font-family: $samsung-one-regular;
-    font-size: $base-font-size;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $cream;
+  overflow: hidden;
+  color: $black;
+  font-family: $samsung-one-regular;
+  font-size: $base-font-size;
 }
 
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+  width: 100%;
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .tizen-logo {
+    display: block;
+    width: 200px;
+    margin: 0 auto;
+    animation-name: spin;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: cubic-bezier(0.5, 0.8, 0.5, 0.2);
+  }
+
+  .app-desc {
+    display: block;
+    margin-top: 30px;
+    text-align: center;
+  }
 }
