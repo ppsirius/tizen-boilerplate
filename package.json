@@ -4,17 +4,17 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "clear:dev": "rimraf dist/debug",
-    "clear:prod": "rimraf dist/release",
-    "webpack:build:dev": "npm run clear:dev && webpack --config ./webpack.config.js",
-    "webpack:build:prod": "npm run clear:prod && cross-env NODE_ENV=production webpack --config ./webpack.config.js",
-    "analyze:webpack:build:dev": "cross-env ANALYZE_BUNDLE=1 npm run webpack:build:dev",
-    "analyze:webpack:build:prod": "cross-env ANALYZE_BUNDLE=1 npm run webpack:build:prod",
-    "webpack:watch": "npm run webpack:build:dev -- --watch",
-    "webpack:serve:dev": "webpack-dev-server --config ./webpack.config.js",
-    "webpack:serve:prod": "cross-env NODE_ENV=production webpack-dev-server --config ./webpack.config.js",
-    "build-deploy": "npm run webpack:build:dev && grunt wgt-deploy",
-    "build-deploy-prod": "cross-env NODE_ENV=production npm run webpack:build:prod && cross-env NODE_ENV=production grunt wgt-deploy"
+    "clear-debug": "rimraf dist/debug",
+    "clear-release": "rimraf dist/release",
+    "webpack-build-debug": "npm run clear-debug && webpack --config ./webpack.config.js",
+    "webpack-build-prod": "npm run clear-release && cross-env NODE_ENV=production webpack --config ./webpack.config.js",
+    "analyze-webpack-build-debug": "cross-env ANALYZE_BUNDLE=1 npm run webpack-build-debug",
+    "analyze-webpack-build-prod": "cross-env ANALYZE_BUNDLE=1 npm run webpack-build-prod",
+    "webpack-watch": "npm run webpack-build-debug -- --watch",
+    "webpack-server-debug": "webpack-dev-server --config ./webpack.config.js",
+    "webpack-server-prod": "cross-env NODE_ENV=production webpack-dev-server --config ./webpack.config.js",
+    "build-deploy": "npm run webpack-build-debug && grunt wgt-deploy",
+    "build-deploy-prod": "cross-env NODE_ENV=production npm run webpack-build-prod && cross-env NODE_ENV=production grunt wgt-deploy"
   },
   "devDependencies": {
     "autoprefixer": "^7.2.5",
